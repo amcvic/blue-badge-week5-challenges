@@ -34,4 +34,24 @@ router.delete('/delete/:id', (req, res) => {
     )
 });
 
+router.put('/update/:id', (req, res) => {
+  Animal
+    .update({
+      name: req.body.animal.name,
+      legNumber: req.body.animal.legNumber,
+      predator: req.body.animal.predator
+    },
+    {where: {id: req.params.id}}).then(
+      (animal) => {
+        res.json({
+          animal: animal,
+          message: 'animal updated!'
+        });
+      },
+      (err) => {
+        res.status(500).send(err.message);
+      }
+    )
+});
+
 module.exports = router;
